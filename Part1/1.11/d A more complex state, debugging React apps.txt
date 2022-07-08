@@ -1,0 +1,96 @@
+//Complex state
+import './App.css';
+import React from 'react';
+import { useState } from 'react';
+
+const App = () =>{
+  //const[left, setLeft] = useState(0)
+  //const[right, setRight] = useState(0)
+  const[clicks, setClicks] = useState({
+    left:0, right:0
+  })
+
+  /*const leftClick = ()=>{
+    const newClick = {
+      ...clicks,//creates new objects that has new copies of all the properties of clicks object meaning that if 
+      //right increases then it will call the right click object
+      left: clicks.left +1,
+    }
+    setClicks(newClick)
+  }
+
+  const rightClick = ()=>{
+    const newClick = {
+      ...clicks,
+      right: clicks.right +1
+    }
+    setClicks(newClick)
+  } or....*/ 
+  const leftClick = ()=>setClicks({...clicks, left: clicks.left+1})
+  const rightClick = ()=>setClicks({...clicks, right: clicks.right+1})
+
+  return(
+    <div>
+      {clicks.left}
+      <button onClick={leftClick}>left</button>
+      <button onClick={rightClick}>right</button>
+      {clicks.right}
+
+    </div>
+  )
+}
+
+export default App
+
+//Handling arrays
+
+const App = () =>{
+  /*const[clicks, setClicks] = useState({
+    left:0, right:0
+  })*/
+  const[left, setLeft] = useState(0)
+  const[right, setRight] = useState(0)
+  const[allClicks, setAll] = useState([])//to remember clicks
+
+  /*const leftClick = ()=>{
+    const newClick = {
+      ...clicks,//creates new objects that has new copies of all the properties of clicks object meaning that if 
+      //right increases then it will call the right click object
+      left: clicks.left +1,
+    }
+    setClicks(newClick)
+  }
+
+  const rightClick = ()=>{
+    const newClick = {
+      ...clicks,
+      right: clicks.right +1
+    }
+    setClicks(newClick)
+  } or....*/ 
+  
+  //const leftClick = ()=>setClicks({...clicks, left: clicks.left+1})
+  //const rightClick = ()=>setClicks({...clicks, right: clicks.right+1})
+
+  const leftCLick =() =>{
+    setAll(allClicks.concat('L')) //L is output when button is clicked
+    setLeft(left+1) //adds 1 to the total of left clicks
+  }
+
+  const rightCLick =() =>{
+    setAll(allClicks.concat('R'))//each time either of the buttons are clicked, letter is concatenated in the list
+    setRight(right+1)
+  }
+
+  return(
+    <div>
+      {left}
+      <button onClick={leftCLick}>left</button>
+      <button onClick={rightCLick}>right</button>
+      {right}
+      <p>{allClicks.join(' ')}</p>
+    </div>
+  )
+}
+
+export default App
