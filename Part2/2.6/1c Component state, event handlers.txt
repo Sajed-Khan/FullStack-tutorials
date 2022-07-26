@@ -1,0 +1,149 @@
+import './App.css';
+import React from 'react';
+
+//Component state, event handlers and Destructuring
+
+//const Hello = (props) => { or...
+  const Hello = ({name, age}) =>{
+  //const name = props.name
+  //const age = props.age or...
+  //const {name,age} = props //if objects being destructured has values like name = sam and age = 40, then using this method
+  //of assigning props assigns those values
+
+  const bornYear = () => new Date().getFullYear() - age
+   //{ const yearNow = new Date().getFullYear()
+   // return yearNow - props.age}
+
+    //func within a func age doesn't need to be passed as a parameter cuz directly accessible 
+  
+
+  return (
+    <div>
+      <p>
+        Hello {name}, you are {age} years old
+      </p>
+      <p>born in {bornYear()}</p>
+    </div>
+  )
+}
+
+const App = () => {
+  const name = 'Peter'
+  const age = 10
+
+  return (
+    <div>
+      <h1>Greetings</h1>
+      <Hello name="Maya" age={26 + 10} />
+      <Hello name={name} age={age} />
+    </div>
+  )
+} 
+
+
+export default App
+
+//Page re-rendering
+import './App.css';
+import React from 'react';
+
+const App = (props) =>{
+  const {counter} = props
+
+  return(
+    <div>{counter}</div>
+  )
+}
+
+export default App
+
+//index.js
+import React from 'react'
+import ReactDOM from 'react-dom/client'
+
+import App from './App'
+
+let counter = 1
+
+const refresh = () =>{
+ReactDOM.createRoot(document.getElementById('root')).render(<App counter = {counter} />)
+}
+//re-renders by calling refresh avoiding copy pasting code for every second
+
+setInterval(()=>{
+    refresh()
+    counter+=1
+},1000)
+
+//Event handling = function
+
+import './App.css';
+import React from 'react';
+import { useState } from 'react';
+
+const App = () =>{
+  const[counter, setCounter] = useState(0) //initializes state to 0 and setCounter will make a change after the timeout hits
+  //100ms and useState is set to 1
+
+//setTimeout(()=> setCounter(counter + 1), 1000)
+//console.log('rendering', counter)
+const incBy1 = () => setCounter(counter+1)
+const reset = () => setCounter(0)
+
+/*return(
+  <div>
+    <div>{counter}</div>
+    <button onClick={()=> setCounter(counter+1)}>plus</button>
+    <button onClick={() => setCounter(0)}>reset</button>
+  </div>
+)*/
+//without func brackets, onClick would be a func call cuz when rendered first time, executes func call and changes counter
+//to 0+1 rerendering the component repeatedly. when using func brackets, counter only resumes after the click
+
+return(
+  <div>
+    <div>{counter}</div>
+    <button onClick={incBy1}>plus</button>
+    <button onClick={reset}>reset</button>
+  </div>
+)
+}
+export default App
+
+//Refactoring the components
+
+const Display = ({counter}) => <div>{counter}</div>
+
+const Button = ({onClick, text}) => <button onClick = {onClick}>{text}</button>
+
+const App = () =>{
+  const[counter, setCounter] = useState(0) //initializes state to 0 and setCounter will make a change after the timeout hits
+  //100ms and useState is set to 1
+
+//setTimeout(()=> setCounter(counter + 1), 1000)
+//console.log('rendering', counter)
+const incBy1 = () => setCounter(counter+1)
+const decBy1 = () => setCounter(counter-1)
+const reset = () => setCounter(0)
+
+/*return(
+  <div>
+    <div>{counter}</div>
+    <button onClick={()=> setCounter(counter+1)}>plus</button>
+    <button onClick={() => setCounter(0)}>reset</button>
+  </div>
+)*/
+//without func brackets, onClick would be a func call cuz when rendered first time, executes func call and changes counter
+//to 0+1 rerendering the component repeatedly. when using func brackets, counter only resumes after the click
+
+return(
+  <div>
+    <Display counter = {counter}/>
+    <Button onClick = {incBy1} text = 'plus'/>
+    <Button onClick = {decBy1} text = 'minus'/>
+    <Button onClick = {reset} text = 'reset'/>
+  </div>
+)
+}
+export default App
+
