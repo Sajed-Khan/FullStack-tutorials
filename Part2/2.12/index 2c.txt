@@ -1,0 +1,22 @@
+import axios from 'axios'
+
+// const promise = axios.get('http://localhost:3001/notes')
+// console.log(promise)
+
+// const promise2 = axios.get('http://localhost:3001/foobar')
+// console.log(promise2)
+
+const promise = axios.get('http://localhost:3001/notes') //get returns a fulfilled promise
+//promise represents completion or failure of an processes that run independently(asynchronous ops)
+//promises: pending(not available), fulfilled (resolved), rejected(failed)
+
+promise.then(response => { //then used to access the result of the operation after the promise
+  console.log(response) //providing a response consisting of data, status code, and headers
+})
+
+axios //readable way to take the data in the response and store in a variable
+  .get('http://localhost:3001/notes')
+  .then(response => {
+    const notes = response.data
+    console.log(notes)
+  })
